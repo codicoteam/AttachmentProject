@@ -14,6 +14,10 @@ public interface BulkBuyingRepo extends MongoRepository<BulkBuying, String> {
     List<BulkBuying> findByBulkBuyingCategoriesCategoryName(String categoryName);
     List<BulkBuying> findByBulkBuyingAttributesColor(String color);
     List<BulkBuying> findByBulkBuyingAttributesType(String type);
+
+
+    List<BulkBuying> findByWholesaleEmail(String type);
+
     List<BulkBuying> findByBulkBuyingPriceBetween(double minPrice, double maxPrice);
     List<BulkBuying> findByBulkBuyingAttributesFeature(String feature);
     List<BulkBuying> findByBulkBuyingDiscountBetween(double minDiscount, double maxDiscount);

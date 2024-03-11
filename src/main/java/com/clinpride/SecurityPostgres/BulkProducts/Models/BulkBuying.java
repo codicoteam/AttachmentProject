@@ -20,7 +20,7 @@ public class BulkBuying {
         private String bulkSalesPrice;
         private String bulkRecommendation;
         private Boolean bulkPurchasable;
-        private Boolean showBulkbuying;
+        private Boolean showBulkBuying;
        private String  totalPricePerQuantity;
        private int totalGoods;
        private String totalCostPrice;
@@ -42,6 +42,7 @@ public class BulkBuying {
         private String wholesaleName;
         private String wholesalePhone;
         private List<String> rowMaterials;
+        private String bulkLocation;
         private String explainRowMaterials;
         private List<BulkBuying.Category> bulkBuyingCategories;
         private List<String> colors;

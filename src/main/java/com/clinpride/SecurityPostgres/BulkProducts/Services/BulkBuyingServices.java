@@ -18,4 +18,5 @@ public interface BulkBuyingServices {
     List<BulkBuying> RangerBulkBuyingModel(double minPrice,double maxPrice);
     List<BulkBuying> searchByFeature(String feature);
     List<BulkBuying> RangerDiscount(double minPrice,double maxPrice);
+    List<BulkBuying> searchWholeSaleName(String type);
 }

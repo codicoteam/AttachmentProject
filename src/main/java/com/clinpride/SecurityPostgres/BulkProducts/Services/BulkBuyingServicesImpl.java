@@ -2,7 +2,6 @@ package com.clinpride.SecurityPostgres.BulkProducts.Services;
 
 import com.clinpride.SecurityPostgres.BulkProducts.Models.BulkBuying;
 import com.clinpride.SecurityPostgres.BulkProducts.Repository.BulkBuyingRepo;
-import com.clinpride.SecurityPostgres.FurniturePackage.Models.PackageModels;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +39,7 @@ public class BulkBuyingServicesImpl implements BulkBuyingServices{
             bulkBuyings.setExplainRowMaterials(bulkBuyingModel.getExplainRowMaterials());
             bulkBuyings.setBulkBuyingDescription(bulkBuyingModel.getBulkBuyingDescription());
             bulkBuyings.setRowMaterials(bulkBuyingModel.getRowMaterials());
+            bulkBuyings.setBulkLocation(bulkBuyingModel.getBulkLocation());
             BulkBuying savedProduct = bulkBuyingRepo.save(bulkBuyings);
             return Optional.of(savedProduct);
         }
@@ -86,26 +86,31 @@ public class BulkBuyingServicesImpl implements BulkBuyingServices{
 
     @Override
     public List<BulkBuying> searchBulkBuyingModelColor(String color) {
-        return null;
+        return bulkBuyingRepo.findByBulkBuyingAttributesColor(color);
     }
 
     @Override
     public List<BulkBuying> searchBulkBuyingModelType(String type) {
-        return null;
+        return bulkBuyingRepo.findByBulkBuyingAttributesType(type);
     }
 
     @Override
     public List<BulkBuying> RangerBulkBuyingModel(double minPrice, double maxPrice) {
-        return null;
+        return bulkBuyingRepo.findByBulkBuyingPriceBetween(minPrice, maxPrice);
     }
 
     @Override
     public List<BulkBuying> searchByFeature(String feature) {
-        return null;
+        return bulkBuyingRepo.findByBulkBuyingAttributesFeature(feature);
     }
 
     @Override
     public List<BulkBuying> RangerDiscount(double minPrice, double maxPrice) {
-        return null;
+        return bulkBuyingRepo.findByBulkBuyingDiscountBetween(minPrice, maxPrice);
+    }
+
+    @Override
+    public List<BulkBuying> searchWholeSaleName(String type) {
+        return bulkBuyingRepo.findByWholesaleEmail(type);
     }
 }
