@@ -21,6 +21,10 @@ public class InviteUserServicesImpl implements InviteUserServices {
     public String createInvite(InviteUserModel inviteUser) {
         try {
 
+
+
+
+
             inviteUserRepo.save(inviteUser);
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(inviteUser.getInvitedEmail());

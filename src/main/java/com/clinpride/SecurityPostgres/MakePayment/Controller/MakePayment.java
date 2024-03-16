@@ -1,27 +1,29 @@
 package com.clinpride.SecurityPostgres.MakePayment.Controller;
 
 import com.clinpride.SecurityPostgres.MakePayment.Model.MakePaymentModel;
+import com.clinpride.SecurityPostgres.MakePayment.Services.MakePaymentService;
+import com.clinpride.SecurityPostgres.Products.models.ProductsModel;
 import lombok.AllArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import zw.co.paynow.constants.MobileMoneyMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import zw.co.paynow.core.Paynow;
 import zw.co.paynow.core.Payment;
-import zw.co.paynow.responses.MobileInitResponse;
 import zw.co.paynow.responses.StatusResponse;
 import zw.co.paynow.responses.WebInitResponse;
+
+import java.util.List;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/make-payment")
 public class MakePayment {
-
-    @PostMapping("/test-me")
+     public final MakePaymentService makePaymentService;
+    @PostMapping("/buy-goods")
     public void sendPayment(@RequestBody MakePaymentModel makePaymentModel) {
+
         Paynow paynow = new Paynow("16739", "7d15ff0f-9a44-4767-897f-f6b41a33fcc5");
-        Payment payment = paynow.createPayment("Invoice 32", "codicosoftwares@gmail.com");
+        Payment payment = paynow.createPayment("invoice 23", "codicosoftwares@gmail.com");
 
         // Add items to the payment
 
@@ -60,6 +62,47 @@ public class MakePayment {
             System.out.println(response.errors());
         }
 
+    }
+
+
+    @PostMapping("/buy-goods/with-web")
+    public ResponseEntity<String> makeWebPayments(@RequestBody MakePaymentModel makePaymentModel) {
+        try{
+            String redirectingLink = makePaymentService.createPayment(makePaymentModel);
+            return ResponseEntity.ok(redirectingLink);
+
+        }catch(Exception e){
+            String response = e.toString();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+    }
+
+    @PostMapping("/buy-goods/with-ecocash")
+    public ResponseEntity<String> makeEcoCashPayments(@RequestBody MakePaymentModel makePaymentModel) {
+        try{
+            System.out.println(makePaymentModel);
+            String response = makePaymentService.createEcoCashPayment(makePaymentModel);
+            return ResponseEntity.ok(response);
+        }catch(Exception e){
+            String response = e.toString();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.toString());
+        }
+    }
+    @DeleteMapping("/delete-many-payments-by-id")
+    public ResponseEntity<String> deleteBulkBuying(@RequestBody List<String> payments) {
+        try{
+            System.out.println(payments);
+            makePaymentService.deleteManyByIds(payments);
+            return ResponseEntity.ok("many payments deleted successfully");
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.toString());
+        }
+    }
+    @GetMapping("/get-all-payments")
+    public List<MakePaymentModel> getAllProducts() {
+            return makePaymentService.getAllPayments();
     }
 }
 
