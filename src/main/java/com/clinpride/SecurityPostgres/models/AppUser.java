@@ -27,10 +27,12 @@ public class AppUser implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    private String national_id;
+    private String address;
     private String roleName;
-    private String userBiography;
     private String phoneNumber;
     private Boolean showUser;
+    private String department;
     private Boolean authenticateUser;
     private Role role;
 

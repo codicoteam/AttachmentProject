@@ -32,6 +32,7 @@ public class AuthenticationService {
             throw new IllegalArgumentException("Email already exists");
         }
         else {
+
             SimpleMailMessage message = new SimpleMailMessage();
             message.setTo(appUser.getEmail());
             message.setSubject("Welcome to Mapmak Furniture - Thank You for Joining!");
@@ -52,7 +53,6 @@ public class AuthenticationService {
                     .authenticateUser(appUser.getAuthenticateUser())
                     .phoneNumber(appUser.getPhoneNumber())
                     .showUser(appUser.getShowUser())
-                    .userBiography(appUser.getUserBiography())
                     .password(passwordEncoder.encode(appUser.getPassword()))
                     .role(Role.USER)
                     .build();

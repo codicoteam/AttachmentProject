@@ -32,7 +32,9 @@ public class UserServicesImpl implements  UserServices{
             AppUser existingUser = optionalUser.get();
             // Update the fields that can be modified
             existingUser.setEmail(appUser.getEmail());
-            existingUser.setUserBiography(appUser.getUserBiography());
+            existingUser.setAddress(appUser.getAddress());
+            existingUser.setNational_id(appUser.getNational_id());
+            existingUser.setDepartment(appUser.getDepartment());
             existingUser.setAuthenticateUser(appUser.getAuthenticateUser());
             existingUser.setLastName(appUser.getLastName());
             existingUser.setFirstName(appUser.getFirstName());
@@ -40,7 +42,6 @@ public class UserServicesImpl implements  UserServices{
             existingUser.setPhoneNumber(appUser.getPhoneNumber());
             existingUser.setShowUser(appUser.getShowUser());
             existingUser.setRoleName(appUser.getRoleName());
-
             // Check if a new password is provided and encode it
             if (appUser.getPassword() != null) {
                 String encodedPassword = passwordEncoder.encode(appUser.getPassword());
